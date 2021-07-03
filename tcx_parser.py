@@ -30,29 +30,31 @@ def get_info_formatted(tcx_file:str):
 
     Extract the data from the tcx file
     '''
-    #regex to get data
+    #regex to get data 
     latitude = "<LatitudeDegrees>(.*?)</LatitudeDegrees>"
     longitude = "<LongitudeDegrees>(.*?)</LongitudeDegrees>"
     altitude = "<AltitudeMeters>(.*?)</AltitudeMeters>"
     distance = "<DistanceMeters>(.*?)</DistanceMeters>"
+
+    #extract raw data from tcx_file
     result = extract_data(tcx_file)
+
     location_data = []
     distancia_for_now = 0
+
     for i in result:
         lat = re.search(latitude, str(i))
         lon = re.search(longitude, str(i))
         alt = re.search(altitude, str(i))
         dis = re.search(distance, str(i))
-        if alt != None: #if it doesn't has a latitude or longitude, skips the line
-            # print("latitude",float(lat.group(1)), "longitude",float(lon.group(1)), "altitude", float(alt.group(1)))
-
+        if lat and lon and alt != None: #if it doesn't has a latitude or longitude, skips the line
             location_data.append({"latitude":float(lat.group(1)), "longitude":float(lon.group(1)) , "altitude": float(alt.group(1))})
 
         if dis != None: #if distance present, add to the last dict
             variation = abs(float(dis.group(1)) - distancia_for_now)
-            append_to_end(location_data, "distance", variation)
             distancia_for_now = float(dis.group(1))
             speed = (variation*18)/float(5)
+
             append_to_end(location_data, "speed", speed)
 
     return location_data

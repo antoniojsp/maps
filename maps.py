@@ -3,20 +3,27 @@ from tcx_parser import *
 import gmplot
 import matplotlib
 from matplotlib import cm
-
+# main.py
+import sys
 import configparser#import the key from secret file
 config = configparser.ConfigParser()
 config.read("credentials.ini")
 API_KEY = config["DEFAULT"]["KEY_FLASH"]
 
 def plot_route(file:str, color:str, attribute:str, output_name:str):
-    cmap = matplotlib.cm.get_cmap('Reds')
+    cmap = matplotlib.cm.get_cmap(color)
 
     # Create the map plotter:
     apikey = API_KEY # (your API key here)
     gmap = gmplot.GoogleMapPlotter(44.0521, -123.0868, 14, apikey=apikey)
 
     data = get_info_formatted(file)
+
+
+    distance = [i[attribute] for i in data]
+
+
+
 
     sortie = sorted(data, key=lambda x: x[attribute], reverse=True)
 
@@ -30,10 +37,12 @@ def plot_route(file:str, color:str, attribute:str, output_name:str):
 
         normalize = (data[i][attribute]-min)/(max-min) #select color
         rgba = cmap(normalize)
-        gmap.plot(*path1, edge_width=7, color=matplotlib.colors.rgb2hex(rgba))
+        gmap.plot(*path1, edge_width=5, color=matplotlib.colors.rgb2hex(rgba))
         i+=1
 
     # Draw the map:
     gmap.draw(output_name)
 
-plot_route("paseo.tcx", "Reds", "speed", "map.html")
+
+if __name__ == "__main__":
+    plot_route(sys.argv[1], "rainbow", "altitude", "map.html")
