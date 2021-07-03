@@ -4,11 +4,16 @@ import gmplot
 import matplotlib
 from matplotlib import cm
 
+import configparser#import the key from secret file
+config = configparser.ConfigParser()
+config.read("credentials.ini")
+API_KEY = config["DEFAULT"]["KEY_FLASH"]
+
 def plot_route(file:str, color:str, attribute:str, output_name:str):
     cmap = matplotlib.cm.get_cmap('Reds')
 
     # Create the map plotter:
-    apikey = "AIzaSyAPxKpFtItuUxkuyelfFyFTJbR2bBb-JsY" # (your API key here)
+    apikey = API_KEY # (your API key here)
     gmap = gmplot.GoogleMapPlotter(44.0521, -123.0868, 14, apikey=apikey)
 
     data = get_info_formatted(file)
