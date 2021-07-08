@@ -8,7 +8,7 @@ def extract_data(file:str):
 
     Gets a string with the location of the tcx file and returns list of the content
     '''
-    with open(file, 'r', encoding='utf-8') as infile:
+    with open("maps/"+file, 'r', encoding='utf-8') as infile:
         raw_data = list(infile)
         result = raw_data[0].split("<Trackpoint>") #first split
 
@@ -80,16 +80,18 @@ def get_info_formatted(tcx_file:str, color:str):
     Calculate the color of each segment
     '''
     velocidad = add_average(temp_speed, 10) # gets the sppeds and average in block
-    mini = min(velocidad)
-    maxi = max(velocidad)
-    color = []
-    for i in velocidad:
-        normalize = (i-mini)/(maxi-mini) #select color
-        rgba = cmap(normalize) # pass to cmap 
-        color.append(matplotlib.colors.rgb2hex(rgba))
+    # mini = min(velocidad)
+    # maxi = max(velocidad)
+    # color = []
+
+    # for i in velocidad:
+    #     normalize = (i-mini)/(maxi-mini) #select color
+    #     rgba = cmap(normalize) # pass to cmap 
+    #     color.append(matplotlib.colors.rgb2hex(rgba))
 
     lati = []
     long = []
+    alti = []
     for i in result:
         lat = re.search(latitude, str(i))
         lon = re.search(longitude, str(i))
@@ -97,7 +99,8 @@ def get_info_formatted(tcx_file:str, color:str):
         if lat and lon and alt != None: #if it doesn't has a latitude or longitude, skips the line
             lati.append(float(lat.group(1)))
             long.append(float(lon.group(1)))
-
-    return lati, long, color
+            alti.append(float(alt.group(1)))
+    
+    return {"latitude":lati, "longitude":long, "speed":velocidad, "altitude":alti}
 
 

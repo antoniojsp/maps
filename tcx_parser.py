@@ -6,7 +6,7 @@ def extract_data(file:str):
 
     Gets a string with the location of the tcx file and returns list of the content
     '''
-    with open(file, 'r', encoding='utf-8') as infile:
+    with open("maps/" + file, 'r', encoding='utf-8') as infile:
         raw_data = list(infile)
         result = raw_data[0].split("<Trackpoint>") #first split
 
