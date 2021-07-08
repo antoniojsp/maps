@@ -4,16 +4,14 @@ import matplotlib
 from matplotlib import cm
 
 def map_js(map:str, color:str, attr:str, name:str):
-    cmap = matplotlib.cm.get_cmap(color)
-
-    attributes = get_info_formatted(map, color)
-    # attributes = {"speed":speed, "altitude":altitude} #selects the attributes
+    cmap = matplotlib.cm.get_cmap(color) # color system
+    attributes = get_info_formatted(map, color) # choose between speed or altitude to clor the map
 
     '''
     Generates map of color according to the values
     '''
     mini = min(attributes[attr])
-    maxi = max(attributes[attr])
+    maxi = max(attributes[attr])    
     color = []
     for i in attributes[attr]:
         normalize = (i-mini)/(maxi-mini) #select color
@@ -70,13 +68,11 @@ def map_js(map:str, color:str, attr:str, name:str):
     </body> \
     </html>'
 
-    f = open(name, "w")
-    f.write("")
-    f.write(result)
-    f.close()
+    with open(name, 'w') as f:
+        f.write(result)
 
 if __name__ == "__main__":
-    map_js(sys.argv[1], "rainbow", "altitude", "map.html")
+    map_js(sys.argv[1], "Blues", "altitude", "map.html")
 
 
 
