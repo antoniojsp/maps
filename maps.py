@@ -1,4 +1,3 @@
-# api_key = "AIzaSyAPxKpFtItuUxkuyelfFyFTJbR2bBb-JsY"
 from tcx_parser import *
 import gmplot
 import matplotlib
