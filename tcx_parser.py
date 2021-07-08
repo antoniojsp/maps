@@ -94,4 +94,3 @@ def get_info_formatted(tcx_file:str):
 
     return location_data
 
-

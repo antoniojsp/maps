@@ -1,4 +1,4 @@
-from tcx_parser import *
+from tcx_parser_js import *
 import gmplot
 import matplotlib
 from matplotlib import cm
@@ -18,7 +18,6 @@ def max_min(data:list, attr:str):
     sortie = sorted(data, key=lambda x: x[attr], reverse=True)
     max = sortie[0][attr]
     min = sortie[-1][attr]
-
     return min, max
 
 def plot_route(file:str, color:str, attribute:str, output_name:str):
@@ -26,7 +25,7 @@ def plot_route(file:str, color:str, attribute:str, output_name:str):
 
     # Create the map plotter:
     apikey = API_KEY # (your API key here)
-    data = get_info_formatted(file)
+    data = get_info_formatted(file, "rainbow")
 
     #middle point to center the map
     lat_min, lat_max = max_min(data, "latitude")
@@ -38,7 +37,7 @@ def plot_route(file:str, color:str, attribute:str, output_name:str):
 
     min, max = max_min(data, attribute)
     # print(min, max)
-    for i in range(len(data)-1):
+    for i in range(5):
         path1 = zip(*[ (data[i]["latitude"],data[i]["longitude"]),
                        (data[i+1]["latitude"],data[i+1]["longitude"])
                      ])
