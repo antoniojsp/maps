@@ -80,14 +80,6 @@ def get_info_formatted(tcx_file:str, color:str):
     Calculate the color of each segment
     '''
     velocidad = add_average(temp_speed, 10) # gets the sppeds and average in block
-    # mini = min(velocidad)
-    # maxi = max(velocidad)
-    # color = []
-
-    # for i in velocidad:
-    #     normalize = (i-mini)/(maxi-mini) #select color
-    #     rgba = cmap(normalize) # pass to cmap 
-    #     color.append(matplotlib.colors.rgb2hex(rgba))
 
     lati = []
     long = []

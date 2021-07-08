@@ -1,0 +1,41 @@
+<html> 
+    <head> 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+    <title>Google Maps - gmplot</title> 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyCW08x5zYibLbXKKoMvZE6TK8DFGjCrobw">
+     </script>     
+     
+     <script type="text/javascript"> 
+        function initialize() { 
+        var map = new google.maps.Map(document.getElementById("map_canvas"), 
+{                 zoom: 14,                 center: new google.maps.LatLng({{lat_middle}}, {{long_middle}})            });
+            var  lat =[{%- for item in latitude %}
+                        {{ item }}{% if not loop.last %},{% endif %}
+                {%- endfor %}]; 
+            var  lon =[{%- for item in longitude %}
+                    {{ item }}{% if not loop.last %},{% endif %}
+                {%- endfor %}]; 
+            var  attr =[{%- for item in color %}
+                        "{{ item }}"{% if not loop.last %},{% endif %}
+                    {%- endfor %}]; 
+
+                for(var i = 0; i < lat.length; i++) {                new google.maps.Polyline({ 
+                    clickable: true, 
+                    geodesic: true,
+                    strokeColor: attr[i], 
+                    strokeOpacity: 1.000000, 
+                    strokeWeight: 5, 
+                    map: map, 
+                    path: [ 
+                        new google.maps.LatLng(lat[i], lon[i]), 
+                        new google.maps.LatLng(lat[i+1], lon[i+1]) 
+                    ] 
+            }) }; 
+        }</script>
+     </head>
+
+     <body style="margin:0px; padding:0px;" onload="initialize()"> 
+        <div id="map_canvas" style="width: 100%; height: 100%;" /> 
+    </body> 
+    </html>

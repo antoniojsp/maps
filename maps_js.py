@@ -55,17 +55,18 @@ def map_js(map:str, color:str, attr:str, name:str):
     '''
     WEBPAGE OF THE MAP
     '''
-    result =  '<html> \
-    <head> \
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> \
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> \
-    <title>Google Maps - gmplot</title> \
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyCW08x5zYibLbXKKoMvZE6TK8DFGjCrobw"></script> \
-    <script type="text/javascript">' + js_fn + '</script> \
-    </head> \
-    <body style="margin:0px; padding:0px;" onload="initialize()"> \
-        <div id="map_canvas" style="width: 100%; height: 100%;" /> \
-    </body> \
+    result =  '<html> \n \
+    <head> \n\
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> \n\
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> \n\
+    <title>Google Maps - gmplot</title> \n\
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyCW08x5zYibLbXKKoMvZE6TK8DFGjCrobw">\n \
+    </script> \
+    <script type="text/javascript">' + js_fn + '</script>\n \
+    </head>\n \
+    <body style="margin:0px; padding:0px;" onload="initialize()"> \n\
+        <div id="map_canvas" style="width: 100%; height: 100%;" /> \n\
+    </body> \n\
     </html>'
 
     with open(name, 'w') as f:
