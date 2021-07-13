@@ -12,7 +12,7 @@ def extract_data(file:str):
         raw_data = list(infile)
         result = raw_data[0].split("<Trackpoint>") #first split
 
-    return result[1:]
+    return result
 
 def add_average(lista, rango):
     '''
@@ -47,13 +47,12 @@ def add_average(lista, rango):
     return result
 
 
-def get_info_formatted(tcx_file:str, color:str):
+def get_info_formatted(tcx_file:str):
     '''
     ()-> (float, float)
 
     Extract the data from the tcx file
     '''
-    cmap = matplotlib.cm.get_cmap(color)
 
     #regex to get data 
     latitude = "<LatitudeDegrees>(.*?)</LatitudeDegrees>"
@@ -68,8 +67,9 @@ def get_info_formatted(tcx_file:str, color:str):
     distancia_for_now = 0
     temp_speed = []
 
-    for i in result:
-        dis = re.search(distance, str(i))
+    for i in range(1,len(result),5):
+        print(result[i])
+        dis = re.search(distance, str(result[i]))
         if dis != None: #if distance present, add to the last dict
             variation = abs(float(dis.group(1)) - distancia_for_now)
             distancia_for_now = float(dis.group(1))
