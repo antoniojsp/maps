@@ -19,7 +19,7 @@ def add_average(lista, rango):
     (list, number) -> (list)
 
     gets a list of values and gets their average in blocks of "rango" i.e: rango = 10, it will get the average
-    from 10 to 10 and creates a list of the same size with repeated values 
+    from 10 to 10 and creates a list of the same size with repeated values
     '''
     promedio = []
     suma = 0
@@ -43,7 +43,7 @@ def add_average(lista, rango):
     for i in promedio[elements_num:]:
         for j in range(avg):
             result.append(i)
-    
+
     return result
 
 
@@ -54,7 +54,7 @@ def get_info_formatted(tcx_file:str):
     Extract the data from the tcx file
     '''
 
-    #regex to get data 
+    #regex to get data
     latitude = "<LatitudeDegrees>(.*?)</LatitudeDegrees>"
     longitude = "<LongitudeDegrees>(.*?)</LongitudeDegrees>"
     altitude = "<AltitudeMeters>(.*?)</AltitudeMeters>"
@@ -68,7 +68,6 @@ def get_info_formatted(tcx_file:str):
     temp_speed = []
 
     for i in range(1,len(result),5):
-        print(result[i])
         dis = re.search(distance, str(result[i]))
         if dis != None: #if distance present, add to the last dict
             variation = abs(float(dis.group(1)) - distancia_for_now)
@@ -79,7 +78,7 @@ def get_info_formatted(tcx_file:str):
     '''
     Calculate the color of each segment
     '''
-    velocidad = add_average(temp_speed, 10) # gets the sppeds and average in block
+    velocidad = add_average(temp_speed, 20) # gets the sppeds and average in block
 
     lati = []
     long = []
@@ -92,7 +91,5 @@ def get_info_formatted(tcx_file:str):
             lati.append(float(lat.group(1)))
             long.append(float(lon.group(1)))
             alti.append(float(alt.group(1)))
-    
+
     return {"latitude":lati, "longitude":long, "speed":velocidad, "altitude":alti}
-
-

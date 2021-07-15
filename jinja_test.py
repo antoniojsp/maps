@@ -15,11 +15,11 @@ def jinja_map(map:str, color:str, attr:str, name:str):
     Generates map of color according to the values
     '''
     mini = min(attributes[attr])
-    maxi = max(attributes[attr])    
+    maxi = max(attributes[attr])
     color = []
     for i in attributes[attr]:
         normalize = (i-mini)/(maxi-mini) #select color
-        rgba = cmap(normalize) # pass to cmap 
+        rgba = cmap(normalize) # pass to cmap
         color.append(matplotlib.colors.rgb2hex(rgba))
 
     '''
